@@ -1,0 +1,42 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>iBoxDB ASP.NET Cross Platform Database Test</title>
+	 
+    <link href="@Path['~/Content/bootstrap.min.css']" rel="stylesheet">
+	 
+
+	<style type="text/css">
+
+		body {
+			text-align: center;
+		}
+
+	</style>
+  </head>
+  <body> 
+  <br>
+  
+    <h3>iBoxDB ASP.NET Cross Platform Database</h3>
+	<a href="/"> <img src="@Path['~/Content/ico_full.png']"  /></a>	
+	<br /> 
+
+	<div class="panel panel-default">  
+   
+  <table class="table table-striped">
+   <tr> <td>System Variable </td>  <td>Value</td></tr> 
+@Each 
+  <tr> <td>@Current.Name </td>  <td>@Current.Value</td></tr> 
+@EndEach
+  </table>
+</div>
+  
+    <script src="@Path['~/Scripts/jquery-1.9.1.min.js']"></script> 
+    <script src="@Path['~/Scripts/bootstrap.min.js']"></script>
+  </body>
+</html>
+ 
