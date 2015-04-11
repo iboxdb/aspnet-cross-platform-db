@@ -18,4 +18,4 @@ Used to check if the components are supported by Windows and Linux
 ```
 
 ### Open Browser
-![Cross Platform DB Test](https://github.com/iboxdb/aspnet-cross-platform-db/raw/master/Content/pic.png")  
+![Cross Platform DB Test](https://github.com/iboxdb/aspnet-cross-platform-db/raw/master/Content/pic.png)  
