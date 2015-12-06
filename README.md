@@ -18,6 +18,16 @@ And [DNXCore example](https://github.com/iboxdb/aspnet-cross-platform-db/tree/ma
  xsp4
 ```
 
+### DNXCore5
+
+```
+ git clone https://github.com/iboxdb/aspnet-cross-platform-db.git 
+ cd aspnet-cross-platform-db/dnxcore
+ dotnet restore
+ //ignore System.* dependencies
+ dotnet run
+```
+
 ### Open Browser
 ![https://github.com/iboxdb/aspnet-cross-platform-db/raw/master/Content/pic.png](https://github.com/iboxdb/aspnet-cross-platform-db/raw/master/Content/pic.png "ASP.NET Cross Platform NoSQL Database iBoxDB")  
 
