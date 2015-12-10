@@ -28,6 +28,15 @@ And [DNXCore example](https://github.com/iboxdb/aspnet-cross-platform-db/tree/ma
  dotnet run
 ```
 
+### Mono
+
+```
+//copy dnxcore to Home
+mcs  /r:/usr/lib/mono/4.5/Facades/System.Runtime.dll /r:/usr/lib/mono/4.5/Facades/System.IO.dll /r:../.dnx/packages/iBoxDB.DNX/2.6.2.16/lib/iBoxDB.DNX.dll  Program.cs iBoxDB26.cs
+export MONO_PATH=../.dnx/packages/iBoxDB.DNX/2.6.2.16/lib
+mono Program.exe
+```
+
 ### Open Browser
 ![https://github.com/iboxdb/aspnet-cross-platform-db/raw/master/Content/pic.png](https://github.com/iboxdb/aspnet-cross-platform-db/raw/master/Content/pic.png "ASP.NET Cross Platform NoSQL Database iBoxDB")  
 
