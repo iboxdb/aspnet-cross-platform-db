@@ -1,0 +1,20 @@
+﻿{
+    "version": "1.0.0-*",
+    "compilationOptions": {
+        "emitEntryPoint": true
+    },
+    "dependencies": {
+        "iBoxDB": "2.7.0.3",
+        "Nancy": "1.4.3",
+        "Nancy.Hosting.Self": "1.4.1"
+    },
+    "frameworks": {
+        "net45": {
+            "frameworkAssemblies": {
+                "System.Runtime": "4.0.0",
+                "System.IO": "4.0.0",
+                "System.Collections": "4.0.0"
+            }
+        }
+    }
+}
