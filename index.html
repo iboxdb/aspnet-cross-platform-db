@@ -22,9 +22,10 @@
       <h2>
 <a id="aspnet-cross-platform-database-test-project" class="anchor" href="#aspnet-cross-platform-database-test-project" aria-hidden="true"><span class="octicon octicon-link"></span></a>ASP.NET Cross Platform Database Test Project</h2>
 
-<p>Used to check if the components(<a href="http://www.iboxdb.com/">iBoxDB</a>, <a href="http://nancyfx.org/">Nancy</a>,  <a href="http://getbootstrap.com/">Bootstrap</a>) are supported by Windows and Linux,</p>
+<p>Used to check if the components(<a href="http://www.iboxdb.com/">iBoxDB</a>, <a href="http://nancyfx.org/">Nancy</a>,  <a href="http://getbootstrap.com/">Bootstrap</a>) are supported on Windows and Linux,</p>
 
-<p>And <a href="https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/dnxcore">DNXCore example</a>.</p>
+<p>And <a href="https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/dnxcore/project.json">DNXCore</a>,
+<a href="https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/dnxmono/project.json">DNXMono</a>.</p>
 
 <h3>
 <a id="windows" class="anchor" href="#windows" aria-hidden="true"><span class="octicon octicon-link"></span></a>Windows</h3>
@@ -45,7 +46,7 @@ Copy to ASP.NET Server
 </code></pre>
 
 <h3>
-<a id="dnxcore5" class="anchor" href="#dnxcore5" aria-hidden="true"><span class="octicon octicon-link"></span></a>DNXCore5</h3>
+<a id="dnx-core" class="anchor" href="#dnx-core" aria-hidden="true"><span class="octicon octicon-link"></span></a>DNX Core</h3>
 
 <pre><code> git clone https://github.com/iboxdb/aspnet-cross-platform-db.git 
  cd aspnet-cross-platform-db/dnxcore
@@ -55,11 +56,28 @@ Copy to ASP.NET Server
 </code></pre>
 
 <h3>
+<a id="dnx-mono" class="anchor" href="#dnx-mono" aria-hidden="true"><span class="octicon octicon-link"></span></a>DNX Mono</h3>
+
+<pre><code> git clone https://github.com/iboxdb/aspnet-cross-platform-db.git 
+ cd aspnet-cross-platform-db/dnxmono
+ export DOTNET_REFERENCE_ASSEMBLIES_PATH="/usr/lib/mono/xbuild-frameworks"
+ dotnet restore 
+ dotnet run
+</code></pre>
+
+<h3>
+<a id="exe-mono" class="anchor" href="#exe-mono" aria-hidden="true"><span class="octicon octicon-link"></span></a>EXE Mono</h3>
+
+<pre><code>//copy dnxcore to Home
+mcs  /r:/usr/lib/mono/4.5/Facades/System.Runtime.dll /r:/usr/lib/mono/4.5/Facades/System.IO.dll /r:../.dnx/packages/iBoxDB.DNX/2.6.2.16/lib/iBoxDB.DNX.dll  Program.cs iBoxDB26.cs
+export MONO_PATH=../.dnx/packages/iBoxDB.DNX/2.6.2.16/lib
+mono Program.exe
+</code></pre>
+
+<h3>
 <a id="open-browser" class="anchor" href="#open-browser" aria-hidden="true"><span class="octicon octicon-link"></span></a>Open Browser</h3>
 
 <p><img src="https://github.com/iboxdb/aspnet-cross-platform-db/raw/master/Content/pic.png" alt="https://github.com/iboxdb/aspnet-cross-platform-db/raw/master/Content/pic.png" title="ASP.NET Cross Platform NoSQL Database iBoxDB">  </p>
-
-<p><a href="https://github.com/iboxdb/aspnet-cross-platform-db/wiki/ASP.NET-Cross-Platform-Development-Online">Adventure Online Development Test</a></p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/iboxdb/aspnet-cross-platform-db">ASP.NET Cross Platform Database with Mono and DNXCore5</a> is maintained by <a href="https://github.com/iboxdb">iboxdb</a>.</span>
