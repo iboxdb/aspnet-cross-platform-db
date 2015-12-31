@@ -1,7 +1,8 @@
 ## ASP.NET Cross Platform Database Test Project
 Used to check if the components([iBoxDB](http://www.iboxdb.com/), [Nancy](http://nancyfx.org/),  [Bootstrap](http://getbootstrap.com/)) are supported by Windows and Linux,
 
-And [DNXCore example](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/dnxcore).
+And [DNXCore](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/dnxcore) , 
+[DNXMono](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/dnxmono) .
 
 ### Windows
     Download
@@ -18,7 +19,7 @@ And [DNXCore example](https://github.com/iboxdb/aspnet-cross-platform-db/tree/ma
  xsp4
 ```
 
-### DNXCore5
+### DNX Core
 
 ```
  git clone https://github.com/iboxdb/aspnet-cross-platform-db.git 
@@ -28,7 +29,17 @@ And [DNXCore example](https://github.com/iboxdb/aspnet-cross-platform-db/tree/ma
  dotnet run
 ```
 
-### Mono
+### DNX Mono
+
+```
+ git clone https://github.com/iboxdb/aspnet-cross-platform-db.git 
+ cd aspnet-cross-platform-db/dnxmono
+ export DOTNET_REFERENCE_ASSEMBLIES_PATH="/usr/lib/mono/xbuild-frameworks"
+ dotnet restore 
+ dotnet run
+```
+
+### Exe Mono
 
 ```
 //copy dnxcore to Home
@@ -41,5 +52,3 @@ mono Program.exe
 ![https://github.com/iboxdb/aspnet-cross-platform-db/raw/master/Content/pic.png](https://github.com/iboxdb/aspnet-cross-platform-db/raw/master/Content/pic.png "ASP.NET Cross Platform NoSQL Database iBoxDB")  
 
 
-
-[Adventure Online Development Test](https://github.com/iboxdb/aspnet-cross-platform-db/wiki/ASP.NET-Cross-Platform-Development-Online)
