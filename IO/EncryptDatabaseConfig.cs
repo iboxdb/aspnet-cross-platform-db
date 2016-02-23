@@ -40,7 +40,7 @@ namespace iBoxDB
         }
         public override bool ExistsStream(string path)
         {
-            return File.Exists(path);
+            return File.Exists(LocalRoot + path);
         }
 
 
