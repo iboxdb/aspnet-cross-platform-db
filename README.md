@@ -19,6 +19,15 @@ And [DNXCore](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/dnx
  xsp4
 ```
 
+### NETCoreApp
+
+```
+ git clone https://github.com/iboxdb/aspnet-cross-platform-db.git 
+ cd aspnet-cross-platform-db/netcoreapp
+ dotnet restore 
+ dotnet run
+```
+
 ### DNX Core
 
 ```
