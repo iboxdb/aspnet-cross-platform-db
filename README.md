@@ -1,7 +1,8 @@
 ## ASP.NET Cross Platform Database Test Project
 Used to check if the components([iBoxDB](http://www.iboxdb.com/), [Nancy](http://nancyfx.org/),  [Bootstrap](http://getbootstrap.com/)) are supported on Windows and Linux,
 
-And [DNXCore](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/dnxcore/project.json) ,
+And [NETCoreApp](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/netcoreapp/hosting) ,
+[DNXCore](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/dnxcore/project.json) ,
 [DNXMono](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/dnxmono/project.json) .
 
 ### Windows
