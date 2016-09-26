@@ -23,7 +23,7 @@ And [DNXCore](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/dnx
 
 ```
  git clone https://github.com/iboxdb/aspnet-cross-platform-db.git 
- cd aspnet-cross-platform-db/netcoreapp
+ cd aspnet-cross-platform-db/netcoreapp/hosting
  dotnet restore 
  dotnet run
 ```
