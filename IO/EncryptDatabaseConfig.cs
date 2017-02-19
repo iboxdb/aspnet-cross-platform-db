@@ -16,7 +16,12 @@ namespace iBoxDB
 
         private static byte[] ReadPasswordFromServer()
         {
-            return new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 11, 12 };
+			//at least 4K
+			byte[] key = new byte[4096 + 479];
+			for (int i=0; i<key.Length; i++) {
+				key [i] = (byte)(i + i / 3 + i % 5);
+			}
+			return key;
         }
 
         private readonly byte[] password;
