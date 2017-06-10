@@ -1,9 +1,10 @@
 ## ASP.NET Cross Platform Database Test Project
 Used to check if the components([iBoxDB](http://www.iboxdb.com/), [Nancy](http://nancyfx.org/),  [Bootstrap](http://getbootstrap.com/)) are supported on Windows and Linux,
 
-And [NETCoreApp](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/netcoreapp/hosting) ,
-[DNXCore](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/dnxcore/project.json) ,
-[DNXMono](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/dnxmono/project.json) .
+And [NETCoreApp 1.1](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/netcoreapp11) ,
+ [NETCoreApp](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/netcoreapp/hosting) ,
+ [DNXCore](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/dnxcore/project.json) ,
+ [DNXMono](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/dnxmono/project.json).
 
 ### Windows
     Download
@@ -18,6 +19,15 @@ And [NETCoreApp](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/
  git clone https://github.com/iboxdb/aspnet-cross-platform-db.git 
  cd aspnet-cross-platform-db
  xsp4
+```
+
+### NETCoreApp 1.1
+
+```
+ git clone https://github.com/iboxdb/aspnet-cross-platform-db.git 
+ cd aspnet-cross-platform-db/netcoreapp11
+ dotnet restore 
+ dotnet run
 ```
 
 ### NETCoreApp
