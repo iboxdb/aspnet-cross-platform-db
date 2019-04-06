@@ -78,10 +78,10 @@ mono Program.exe
 
   
 ### IO
- /IO/, Encrypted IO
+ **/IO/, Encrypted IO.**
 
 
 ### Retry IO
- /RetryID/, Example for Network IO.
+ **/RetryIO/, Example for Network IO.**
 
 
