@@ -14,13 +14,6 @@ namespace RetryIO
             DB.Root("/mnt/hgfs/Share/db");
 
 
-            {/* 
-                DB.Root("/tmp");
-                var ra = iBoxDB.NDB.RunALL(true);
-                Console.WriteLine(ra);
-                return; */
-            }
-
             var auto = new Func<AutoBox>(() =>
             {
 
@@ -29,14 +22,17 @@ namespace RetryIO
 
                 db.GetConfig().EnsureTable<TestObject>(nameof(TestObject), "Id");
 
-                //Disable Cache, for Test only. it should be big
+                //Disable Cache, for Test only. it should be big for remote IO
                 db.GetConfig().DBConfig.CacheLength = 1;
 
                 return db.Open();
             })();
+
+
             using (auto.GetDatabase())
             {
                 string r = "Begin";
+
                 var thread1 = new Thread(() =>
 {
     while (r != "exit")
@@ -81,6 +77,7 @@ namespace RetryIO
         }
     }
                 );
+
                 thread1.Start();
                 thread2.Start();
                 while ((r = Console.ReadLine()) != "exit")

@@ -30,7 +30,8 @@ public class RetryStreamConfig : DatabaseConfig
     Dictionary<string, RetryStream> dict = new Dictionary<string, RetryStream>();
     public override IBStream CreateStream(string path, StreamAccess access)
     {
-        //one remote connection each file;
+        //one remote connection each file; each remote connection has its own inner cache, 
+        //two connections for one file, some cache will not update automatically.
         RetryStream o;
         if (dict.TryGetValue(path, out o))
         {
