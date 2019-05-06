@@ -1,0 +1,80 @@
+cat << EOL > localhost.conf
+[req]
+default_bits       = 2048
+default_keyfile    = localhost.key
+distinguished_name = req_distinguished_name
+#req_extensions     = req_ext
+#x509_extensions    = v3_ca
+
+[req_distinguished_name]
+countryName                 = Country Name (2 letter code)
+countryName_default         = US
+stateOrProvinceName         = State or Province Name (full name)
+stateOrProvinceName_default = New York
+localityName                = Locality Name (eg, city)
+localityName_default        = Rochester
+organizationName            = Organization Name (eg, company)
+organizationName_default    = localhost
+organizationalUnitName      = organizationalunit
+organizationalUnitName_default = Development
+commonName                  = Common Name (e.g. server FQDN or YOUR name)
+commonName_default          = localhost
+commonName_max              = 64
+
+#[req_ext]
+#subjectAltName = @alt_names
+
+#[v3_ca]
+#subjectAltName = @alt_names
+
+#[alt_names]
+#DNS.1   = localhost
+#DNS.2   = 127.0.0.1
+EOL
+
+
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout localhost.key -out localhost.crt -config localhost.conf -passin pass:YourSecurePassword
+
+sudo openssl pkcs12 -export -out localhost.pfx -inkey localhost.key -in localhost.crt
+
+## sudo openssl pkcs12 -export -out certificate.pfx -inkey privateKey.key -in certificate.crt -certfile more.crt
+##sudo usermod -aG ssl-cert www-data
+
+sudo chmod +rw localhost.pfx
+
+copy the localhost.pfx to your project's root folder (src/https.web).
+
+certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n "localhost" -i localhost.crt
+
+certutil -L -d sql:${HOME}/.pki/nssdb
+
+### For Delete ### certutil -D -d sql:${HOME}/.pki/nssdb -n "localhost"
+
+appsettings.json
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "Kestrel": {
+    "Endpoints": {
+      "Http": {
+        "Url": "http://localhost:8000"
+      },
+      "Https": {
+        "Url": "https://localhost:44300",
+        "Protocols": "Http1AndHttp2",
+        "Certificate": {
+          "Path": "localhost.pfx",
+          "Password": "YourSecurePassword"
+        }
+      }
+    }
+  }
+}
+
+
+curl -v -k https://localhost:44300/api/values
+Firefox -> Advanced -> Add Exception -> Confirm
