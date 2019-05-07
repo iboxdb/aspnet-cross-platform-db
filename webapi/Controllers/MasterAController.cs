@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using iBoxDB.LocalServer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace webapi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class MasterAController : ControllerBase
     {
         // GET api/values
         [HttpGet]
@@ -18,34 +19,32 @@ namespace webapi.Controllers
             return new string[] { "value1", "value2", DateTime.Now.ToString() };
         }
 
+        [HttpPost("Insert")]
+        public string Insert([FromBody] string value)
+        {
+            return CommitResult.OK.ToString();
+        }
+
+
         // GET api/values/5
         ///<summary>
         /// Action Result 88
         ///</summary>
         /// <remarks>Awesomeness 88!</remarks>
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        [HttpGet("Log/{id}")]
+        public String Log(long id)
         {
             return "value " + id;
         }
 
-        // POST api/values
-        [HttpPost]
-        public string Post([FromBody] string value)
+        [HttpPost("Replicate")]
+        public string Replicate([FromBody] string log)
         {
-            return "FROM BODY " + value;
+            return "FROM BODY " + log;
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+
+
     }
 }

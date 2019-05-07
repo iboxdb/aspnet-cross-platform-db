@@ -32,8 +32,11 @@ namespace WebApi
             services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+
+
     string appName = "webapi";
     var filePath = Path.Combine(System.AppContext.BaseDirectory, $"{appName}.xml");
+    //remove this line if can't find XML file
     c.IncludeXmlComments(filePath);
 });
         }
@@ -51,8 +54,8 @@ namespace WebApi
                 //app.UseHsts();
             }
 
-            app.UseCors();
             //app.UseHttpsRedirection(); 
+            app.UseCors();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
     {
