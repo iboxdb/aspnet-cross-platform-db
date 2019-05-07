@@ -18,50 +18,50 @@ namespace WebApi
         public static void Main(string[] args)
         {
 
-            var task = Task.Run<(AutoBox, Guid, AutoBox, Guid)>(() =>
-               {
-                   #region Path 
-                   String dir = "iwebapi_data";
-                   String path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), dir);
-                   Directory.CreateDirectory(path);
-                   Console.WriteLine("DBPath=" + path);
-                   DB.Root(path);
-                   #endregion
+            var task = Task.Run<(App, App)>(() =>
+                {
+                    #region Path 
+                    String dir = "iwebapi_data";
+                    String path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), dir);
+                    Directory.CreateDirectory(path);
+                    Console.WriteLine("DBPath=" + path);
+                    DB.Root(path);
+                    #endregion
 
-                   Guid[] dbids = new Guid[2];
-                   DB[] dbs = new DB[2] { new DB(1), new DB(2) };
-                   #region Config
+                    DB[] dbs = new DB[2] { new DB(1), new DB(2) };
 
-                   for (var i = 0; i < dbs.Length; i++)
-                   {
-                       var recy = new LogRecycler(i + 11);
+                    App[] apps = new App[dbs.Length];
 
-                       dbs[i].SetBoxRecycler(recy);
-                       var cfg = dbs[i].GetConfig().DBConfig;
-                       cfg.CacheLength = cfg.MB(256);
+                    #region Config
+                    for (var i = 0; i < dbs.Length; i++)
+                    {
+                        apps[i] = new App();
+                        var databaseId = i + 1;
+                        var recy = new LogRecycler(databaseId + 100, databaseId, apps[i]);
+                        dbs[i].SetBoxRecycler(recy);
 
-                       cfg.EnsureTable<Var>("Var", "Id");
-                       cfg.EnsureTable<Confirm>("Confirm", "DatabaseId");
-                       cfg.EnsureTable<Article>("Article", "Id", "DatabaseId");
-                   }
+                        var cfg = dbs[i].GetConfig().DBConfig;
+                        cfg.CacheLength = cfg.MB(256);
 
+                        cfg.EnsureTable<Confirm>("Confirm", "DatabaseId");
+                        cfg.EnsureTable<Article>("Article", "Id", "DatabaseId");
 
+                        apps[i].Auto = dbs[i].Open();
+                        apps[i].DatabaseId = databaseId;
+                    }
+                    #endregion
 
-
-
-                   #endregion
-
-                   return (dbs[0].Open(), dbids[0], dbs[1].Open(), dbids[1]);
-               });
+                    return (apps[0], apps[1]);
+                });
 
 
             var host = CreateWebHostBuilder(args).Build();
 
-            (App.MasterA, App.MasterADatabaseId, App.MasterB, App.MasterBDatabaseId) = task.GetAwaiter().GetResult();
+            (App.MasterA, App.MasterB) = task.GetAwaiter().GetResult();
 
-            using (App.MasterA.GetDatabase())
+            using (App.MasterA.Auto.GetDatabase())
             {
-                using (App.MasterB.GetDatabase())
+                using (App.MasterB.Auto.GetDatabase())
                 {
                     host.Run();
                 }
