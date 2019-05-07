@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -10,8 +11,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.Swagger;
 
-namespace webapi
+namespace WebApi
 {
     public class Startup
     {
@@ -25,7 +27,15 @@ namespace webapi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+    string appName = "webapi";
+    var filePath = Path.Combine(System.AppContext.BaseDirectory, $"{appName}.xml");
+    c.IncludeXmlComments(filePath);
+});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,8 +50,17 @@ namespace webapi
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 //app.UseHsts();
             }
-            //app.UseHttpsRedirection();
+
+            app.UseCors();
+            //app.UseHttpsRedirection(); 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    });
             app.UseMvc();
+
+
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace webapi.Controllers
@@ -18,16 +19,21 @@ namespace webapi.Controllers
         }
 
         // GET api/values/5
+        ///<summary>
+        /// Action Result 88
+        ///</summary>
+        /// <remarks>Awesomeness 88!</remarks>
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
-            return "value";
+            return "value " + id;
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public string Post([FromBody] string value)
         {
+            return "FROM BODY " + value;
         }
 
         // PUT api/values/5

@@ -8,13 +8,18 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace webapi
+namespace WebApi
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            
+
+            var host = CreateWebHostBuilder(args);
+            host.Build().Run();
+
+
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

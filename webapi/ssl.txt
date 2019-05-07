@@ -74,7 +74,11 @@ appsettings.json
     }
   }
 }
-
+dotnet add package iBoxDB --version 2.17.3.2
 
 curl -v -k https://localhost:44300/api/values
 Firefox -> Advanced -> Add Exception -> Confirm
+
+Test API
+http://localhost:8000/swagger/index.html
+
