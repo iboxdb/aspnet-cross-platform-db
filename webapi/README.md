@@ -1,9 +1,6 @@
 
 ## WebAPI
-
-### Under Development
-this Project is about LogRecycler.cs, how to use WebAPI and distributing data.
-
+ 
 ### Run
 
 ```

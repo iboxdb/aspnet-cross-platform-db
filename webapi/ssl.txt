@@ -74,6 +74,14 @@ appsettings.json
     }
   }
 }
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  <!-- <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile> -->
+  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+  
 dotnet add package iBoxDB --version 2.17.3.2
 
 curl -v -k https://localhost:44300/api/values
@@ -82,3 +90,4 @@ Firefox -> Advanced -> Add -> Confirm/Accept  Self-Signed
 Test API
 http://localhost:8000/swagger/index.html
 
+ab -k -n 200000 -c 200 http://localhost:8000/Article

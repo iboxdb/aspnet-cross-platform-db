@@ -8,6 +8,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using WebApi.Models;
 
 namespace WebApi
 {
@@ -18,7 +19,7 @@ namespace WebApi
         public static void Main(string[] args)
         {
 
-            var task = Task.Run<(App, App)>(() =>
+            var task = Task.Run<AutoBox>(() =>
                 {
                     #region Path 
                     String dir = "iwebapi_data";
@@ -28,43 +29,20 @@ namespace WebApi
                     DB.Root(path);
                     #endregion
 
-                    DB[] dbs = new DB[2] { new DB(1), new DB(2) };
-
-                    App[] apps = new App[dbs.Length];
-
-                    #region Config
-                    for (var i = 0; i < dbs.Length; i++)
-                    {
-                        apps[i] = new App();
-                        var databaseId = i + 1;
-                        var recy = new LogRecycler(databaseId + 100, databaseId, apps[i]);
-                        dbs[i].SetBoxRecycler(recy);
-
-                        var cfg = dbs[i].GetConfig().DBConfig;
-                        cfg.CacheLength = cfg.MB(256);
-
-                        cfg.EnsureTable<Confirm>("Confirm", "DatabaseId");
-                        cfg.EnsureTable<Article>("Article", "Id", "DatabaseId");
-
-                        apps[i].Auto = dbs[i].Open();
-                        apps[i].DatabaseId = databaseId;
-                    }
-                    #endregion
-
-                    return (apps[0], apps[1]);
+                    DB db = new DB(1);
+                    var cfg = db.GetConfig();
+                    cfg.EnsureTable<Article>("Article", "Id");
+                    return db.Open();
                 });
 
 
             var host = CreateWebHostBuilder(args).Build();
 
-            (App.MasterA, App.MasterB) = task.GetAwaiter().GetResult();
+            (App.Auto) = task.GetAwaiter().GetResult();
 
-            using (App.MasterA.Auto.GetDatabase())
+            using (App.Auto.GetDatabase())
             {
-                using (App.MasterB.Auto.GetDatabase())
-                {
-                    host.Run();
-                }
+                host.Run();
             }
         }
 

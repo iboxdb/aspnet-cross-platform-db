@@ -37,7 +37,7 @@ namespace WebApi
     string appName = "webapi";
     var filePath = Path.Combine(System.AppContext.BaseDirectory, $"{appName}.xml");
     //remove this line if can't find XML file
-    c.IncludeXmlComments(filePath);
+    //c.IncludeXmlComments(filePath);
 });
         }
 
