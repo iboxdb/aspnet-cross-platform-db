@@ -2,6 +2,12 @@ using System;
 using iBoxDB.LocalServer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
+using System.IO.Compression;
+using System.IO;
+/*
+<PackageReference Include="iBoxDB" Version="2.21.0" />
+<PackageReference Include="System.IO.Compression" Version="4.3"/>
+*/
 
 public interface IApp
 {
@@ -28,7 +34,14 @@ public class AppClient : IApp
                 if (DB.Tag == null)
                 {
                     var bs = runtime.Invoke<byte[]>("localStorage.getItem", typeof(DB).FullName);
-
+                    if (bs != null)
+                    {
+                        var mm = new MemoryStream();
+                        var zip = new GZipStream(new MemoryStream(bs), CompressionMode.Decompress);
+                        zip.CopyTo(mm);
+                        zip.Dispose();
+                        bs = mm.ToArray();
+                    }
                     var db = new DB(bs ?? new byte[0]);
                     var cfg = db.GetConfig();
                     cfg.EnsureTable<Record>("Table", "Id");
@@ -55,6 +68,13 @@ public class AppClient : IApp
     {
         var db = (DB)(((Object[])DB.Tag)[1]);
         var bs = db.GetBuffer();
+
+        var mm = new MemoryStream();
+        var zip = new GZipStream(mm, CompressionMode.Compress);
+        zip.Write(bs, 0, bs.Length);
+        zip.Dispose();
+        bs = mm.ToArray();
+
         runtime.Invoke<byte[]>("localStorage.setItem", typeof(DB).FullName, bs);
         return bs.Length;
     }
