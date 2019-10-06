@@ -1,0 +1,29 @@
+﻿@page "/counter" 
+
+<h1>Counter</h1>
+
+<p>Current count: @record.Value</p>
+<p>@msg</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+ string msg;
+ 
+ Record record;
+ [Inject]
+ IApp App{get;set;}
+ protected override void OnInitialized(){
+    record = App.Auto.Get<Record>("Table", 0L)?? new Record{ Id=0L , Name = "Increment" } ;      
+ }
+
+ void IncrementCount()
+ { 
+  using(var box = App.Cube()){
+    record.Value++;
+    box["Table"].Replace(record);
+    var cr = box.Commit();
+    msg =  cr.ToString() + ", " + App.Save();       
+  }       
+ }
+}
