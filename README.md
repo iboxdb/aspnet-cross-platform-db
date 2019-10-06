@@ -10,6 +10,7 @@ And [NETCoreApp 1.1](https://github.com/iboxdb/aspnet-cross-platform-db/tree/mas
  [NETCoreApp](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/netcoreapp/hosting) ,
  [DNXCore](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/dnxcore/project.json) ,
  [DNXMono](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/dnxmono/project.json),
+[BlazorWasm](https://github.com/iboxdb/aspnet-cross-platform-db/blob/master/blazorwasm/IApp.cs),
 
 And More Code ...
 
