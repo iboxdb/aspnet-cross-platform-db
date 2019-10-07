@@ -121,7 +121,7 @@ public static class AppClientExtension
 {
     public static IServiceCollection AddDatabase(this IServiceCollection services)
     {
-        return services.AddScoped<IApp, AppClient>();
+        return services.AddSingleton<IApp, AppClient>();
     }
 }
 
