@@ -8,22 +8,28 @@
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
- string msg;
- 
+
+ string msg = ""; 
  Record record;
+ 
  [Inject]
  IApp App{get;set;}
+ 
  protected override void OnInitialized(){
     record = App.Auto.Get<Record>("Table", 0L)?? new Record{ Id=0L , Name = "Increment" } ;      
  }
 
+
+//<TargetFramework>netstandard2.0</TargetFramework>    
+//<LangVersion>8.0</LangVersion>  C#8
  void IncrementCount()
  { 
-  using(var box = App.Cube()){
+    using var box = App.Cube();  
     record.Value++;
     box["Table"].Replace(record);
     var cr = box.Commit();
-    msg =  cr.ToString() + ", " + App.Save();       
-  }       
+
+    msg =  cr.ToString() + ", " + App.Msg;       
+          
  }
 }
