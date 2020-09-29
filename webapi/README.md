@@ -11,5 +11,10 @@ dotnet run
 ### Browse API
 
  http://localhost:8000/swagger/  
- or https://localhost:44300/swagger/
+ 
+ https://localhost:44300/swagger/
 
+
+### SSL
+
+[SSL Linux](https://github.com/iboxdb/aspnet-cross-platform-db/blob/master/webapi/ssl.txt)
