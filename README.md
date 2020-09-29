@@ -1,28 +1,59 @@
 ## ASP.NET Cross Platform Database Test Project
 
-
-
-
-### XSP4 ASP.NET
 Used to check if [iBoxDB](http://www.iboxdb.com/) is supported on Windows and Linux,
 
-And [NETCoreApp 1.1](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/netcoreapp11) ,
+[Blazor Wasm Client App](https://github.com/iboxdb/aspnet-cross-platform-db/blob/master/blazorwasm/IApp.cs)
+
+[Encrypted IO](https://github.com/iboxdb/aspnet-cross-platform-db/blob/master/IO/EncryptDatabaseConfig.cs)
+
+[RetryIO for Network IO](https://github.com/iboxdb/aspnet-cross-platform-db/blob/master/RetryIO/RetryStreamConfig.cs)
+
+[WebAPI](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/webapi)
+
+
+### Add assembly to project
+```xml
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="\home\user\Downloads\iBoxDB\NETDB\iBoxDB.dll">
+    </Reference> 
+
+    <!--  
+    <Reference Include="\home\user\Downloads\iBoxDB\NETDB\NET2\iBoxDB.NET2.dll">
+    </Reference> 
+    -->
+
+  </ItemGroup>
+
+</Project>
+```
+
+
+
+
+## History...
+
+ [NETCoreApp 1.1](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/netcoreapp11) ,
  [NETCoreApp](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/netcoreapp/hosting) ,
  [DNXCore](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/dnxcore/project.json) ,
- [DNXMono](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/dnxmono/project.json),
-[BlazorWasm](https://github.com/iboxdb/aspnet-cross-platform-db/blob/master/blazorwasm/IApp.cs),
+ [DNXMono](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/dnxmono/project.json)
+ 
 
-And More Code ...
+### ASP.NET WebForm
 
-
-
-#### Windows
+#### Windows WebForm
 ```
     Download
     Copy /OriginVer/ to ASP.NET Server
 ```
 
-#### Linux Mono
+#### Linux Mono WebForm
 
 ```
  sudo apt-get update
@@ -82,13 +113,3 @@ mono Program.exe
 ```
 
   
-### IO
- **/IO/, Encrypted IO.**
-
-
-### Retry IO
- **/RetryIO/, Example for Network IO.**
-
-
-### WebAPI
- **/webapi/, Example for Exchanging data.**
