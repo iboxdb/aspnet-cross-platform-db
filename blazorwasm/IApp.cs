@@ -1,14 +1,27 @@
 using System;
-using iBoxDB.LocalServer;
+
+using IBoxDB.LocalServer;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
 using System.IO.Compression;
 using System.IO;
-using iBoxDB.LocalServer.Replication;
+
 /*
-<PackageReference Include="iBoxDB" Version="2.21.0" />
-<PackageReference Include="System.IO.Compression" Version="4.3"/>
+<PackageReference Include="iBoxDB" Version="3.0" />
 */
+
+/* 
+public void ConfigureServices(IServiceCollection services)
+   services.AddDatabase();
+*/
+public static class AppClientExtension
+{
+    public static IServiceCollection AddDatabase(this IServiceCollection services)
+    {
+        return services.AddSingleton<IApp, AppClient>();
+    }
+}
 
 public interface IApp
 {
@@ -45,7 +58,11 @@ public class AppClient : IApp
             cfg.EnsureTable<Record>("Table", "Id");
 
             db.MinConfig().FileIncSize = 1;
-            db.SetBoxRecycler(new TSave(this));
+            db.SetBoxRecycler((socket, outBox, normal) =>
+            {
+                time++;
+                msg = $"{Save()},  Time:({time})";
+            });
             auto = db.Open();
 
         }
@@ -56,6 +73,7 @@ public class AppClient : IApp
     }
 
     public AutoBox Auto => auto;
+    public string Msg => msg;
 
     public IBox Cube()
     {
@@ -75,55 +93,12 @@ public class AppClient : IApp
         runtime.Invoke<byte[]>("localStorage.setItem", typeof(DB).FullName, bs);
         return bs.Length;
     }
-    private class TSave : IBoxRecycler3
-    {
-        private AppClient app;
-        public TSave(AppClient _app)
-        {
-            app = _app;
-        }
-        public void Dispose()
-        {
-        }
 
-        public bool Enabled()
-        {
-            //disable OnReceived();
-            return false;
-        }
-
-        public void OnReceived(Socket socket, BoxData outBox, bool normal)
-        {
-        }
-        public void OnReceiving(Socket socket)
-        {
-        }
-
-        private long time = 0;
-        public void OnFlushed(Socket socket)
-        {
-            if (app.auto != null)
-            {
-                app.msg = $"{app.Save()} ({++time})";
-            }
-        }
-    }
-    public string Msg => msg;
+    private long time = 0;
 
 }
 
-/*
-public class Startup
-public void ConfigureServices(IServiceCollection services)
-services.AddDatabase();
- */
-public static class AppClientExtension
-{
-    public static IServiceCollection AddDatabase(this IServiceCollection services)
-    {
-        return services.AddSingleton<IApp, AppClient>();
-    }
-}
+
 
 public class Record
 {
