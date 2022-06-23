@@ -1,12 +1,16 @@
-﻿using System.IO;
-using iBoxDB.LocalServer;
-using iBoxDB.LocalServer.IO;
 using System;
+using System.IO;
+using System.IO.Compression;
+using IBoxDB.LocalServer;
+using IBoxDB.LocalServer.IO;
 
-namespace iBoxDB
+
+namespace IBoxDB.IO
 {
     // An example for encryption.
-    // iBoxDB.EncryptDatabaseConfig.ResetStorage();   var server = new DB();
+    // EncryptDatabaseConfig.ResetStorage();  
+    // var db = new DB();
+    // <PackageReference Include="iBoxDB" Version="3.5.0" />	
     public class EncryptDatabaseConfig : DatabaseConfig
     {
         public static void ResetStorage()
@@ -16,12 +20,13 @@ namespace iBoxDB
 
         private static byte[] ReadPasswordFromServer()
         {
-			//at least 4K
-			byte[] key = new byte[4096 + 479];
-			for (int i=0; i<key.Length; i++) {
-				key [i] = (byte)(i + i / 3 + i % 5);
-			}
-			return key;
+            //the key at least 8K
+            byte[] key = new byte[1024 * 8 + 479];
+            for (int i = 0; i < key.Length; i++)
+            {
+                key[i] = (byte)(i + i / 3 + i % 5);
+            }
+            return key;
         }
 
         private readonly byte[] password;
@@ -38,9 +43,10 @@ namespace iBoxDB
 
         public override IBStream CreateStream(string path, StreamAccess access)
         {
+            int noBuffer = 1;
             FileStream fs = new FileStream(LocalRoot + path, FileMode.OpenOrCreate,
               access == StreamAccess.Read ? FileAccess.Read : FileAccess.ReadWrite,
-              access == StreamAccess.Read ? FileShare.ReadWrite : FileShare.Read, 1);
+              access == StreamAccess.Read ? FileShare.ReadWrite : FileShare.Read, noBuffer);
             return new LocalStream(fs, password);
         }
         public override bool ExistsStream(string path)
@@ -117,6 +123,69 @@ namespace iBoxDB
 
             }
 
+        }
+    }
+
+    public class EncryptDatabaseConfigTest
+    {
+
+        public static void Test()
+        {
+            EncryptDatabaseConfig.ResetStorage();
+            DB.Root("../Encrypted_Database");
+            long fileAddress = 1L;
+            DB db = new DB(fileAddress);
+
+            var cfg = db.MinConfig();
+            cfg.FileIncSize = 1;
+            cfg.EnsureTable<Record>("Record", "Id");
+            var auto = db.Open();
+            auto.Insert("Record", new Record
+            {
+                Id = auto.NewId(),
+                Value = DateTime.Now.ToString()
+            });
+            Console.WriteLine("File:");
+            Console.WriteLine(auto.Select("from Record"));
+            auto.GetDatabase().Dispose();
+
+            Console.WriteLine("File(Re-Open):");
+            db = new DB(fileAddress);
+            auto = db.Open();
+            Console.WriteLine(auto.Select("from Record"));
+
+            Console.WriteLine("Memory:");
+            var bs = auto.GetDatabase().CopyTo();
+
+            using (var mm = new MemoryStream())
+            {
+                using (var zip = new GZipStream(mm, CompressionMode.Compress))
+                {
+                    zip.Write(bs, 0, bs.Length);
+                }
+                bs = mm.ToArray();
+            }
+            Console.WriteLine("Database Size is : " + bs.Length / 1024 + " (KB) ");
+
+            using (var mm = new MemoryStream())
+            {
+                using (var zip = new GZipStream(new MemoryStream(bs), CompressionMode.Decompress))
+                {
+                    zip.CopyTo(mm);
+                }
+                bs = mm.ToArray();
+            }
+
+            var memAuto = new DB(bs).Open();
+            Console.WriteLine(memAuto.Select("from Record"));
+            memAuto.GetDatabase().Dispose();
+            auto.GetDatabase().Dispose();
+        }
+
+        public class Record
+        {
+            public long Id;
+            public String Value;
         }
     }
 
