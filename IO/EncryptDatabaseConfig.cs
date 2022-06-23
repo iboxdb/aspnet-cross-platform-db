@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.IO.Compression;
 using IBoxDB.LocalServer;
 using IBoxDB.LocalServer.IO;
 
@@ -125,6 +124,13 @@ namespace IBoxDB.IO
 
         }
     }
+}
+
+namespace IBoxDB.IO.Test
+{
+    //this ZIP-IO not for encryption,
+    //just to show how small the database is.
+    using System.IO.Compression;
 
     public class EncryptDatabaseConfigTest
     {
