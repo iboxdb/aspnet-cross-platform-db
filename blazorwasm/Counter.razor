@@ -1,35 +1,33 @@
-﻿@page "/counter" 
+@page "/counter"
+
+<PageTitle>Counter</PageTitle>
 
 <h1>Counter</h1>
 
-<p>Current count: @record.Value</p>
-<p>@msg</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<p role="status">Current count: @currentCount</p>
+<p role="status">Database size: @App.Msg</p>
 
-@code {
+@code
+{
+    [Inject]
+    IApp App { get; set; } = default!;
 
- string msg = ""; 
- Record record;
- 
- [Inject]
- IApp App{get;set;}
- 
- protected override void OnInitialized(){
-    record = App.Auto.Get<Record>("Table", 0L)?? new Record{ Id=0L , Name = "Increment" } ;      
- }
+    private int currentCount = 0;
 
+    private void IncrementCount()
+    {
+        using var box = App.Auto.Cube();
+        var record = box["Table", 0L].Replace<Record>();
+        record.Value++;
+        box.Commit();
+        currentCount = record.Value;
+    }
 
-//<TargetFramework>netstandard2.0</TargetFramework>    
-//<LangVersion>8.0</LangVersion>  C#8
- void IncrementCount()
- { 
-    using var box = App.Cube();  
-    record.Value++;
-    box["Table"].Replace(record);
-    var cr = box.Commit();
-
-    msg =  cr.ToString() + ", " + App.Msg;       
-          
- }
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        IncrementCount();
+    }
 }
