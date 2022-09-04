@@ -1,8 +1,10 @@
 extends MeshInstance
 
 var idb = preload("res://iboxdb.cs").new()
+#var idb = preload("res://iboxdb.cs").create(2)
 
 func _ready():	
+	print(idb.get_os_name());
 	#idb.debug_clear()
 	
 	idb.ensure_table({"id":0}, "table" , [])
@@ -65,7 +67,7 @@ func test():
 #	var o4 = idb.find("table",id)
 #	print(o4==null)
 	 
-	idb.save_web( JavaScript ) 
+	idb.save_web() 
 
 
 

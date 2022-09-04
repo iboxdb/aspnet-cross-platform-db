@@ -9,12 +9,13 @@ using IBoxDB.LocalServer;
 //var idb = preload("res://iboxdb.cs").new()
 public class iboxdb : Godot.Object
 {
+
     //var idb = preload("res://iboxdb.cs").create(2)
     public static iboxdb create(int db_id)
     {
         return new iboxdb(db_id);
     }
-    
+
     private DB _db;
     private AutoBox _auto = null;
     private int _db_id;
@@ -22,11 +23,7 @@ public class iboxdb : Godot.Object
     static iboxdb()
     {
         //Path
-        var t = new Godot.File();
-        t.Open("user://DBROOT.tmp", Godot.File.ModeFlags.Write);
-        var dir = Path.GetDirectoryName(t.GetPathAbsolute());
-        t.Close();
-
+        var dir = Godot.OS.GetUserDataDir();
         dir = Path.Combine(dir, "DBROOT");
         Directory.CreateDirectory(dir);
         DB.Root(dir);
@@ -162,14 +159,14 @@ public class iboxdb : Godot.Object
         return _auto.Delete(tableName, key);
     }
 
-    // HTML5 Save
-    //idb.save_web( JavaScript )
-    public object save_web(Godot.Object JavaScript)
+    //HTML5 Save
+    //idb.save_web()
+    public object save_web()
     {
         String script = "FS.syncfs(false, function (err) {});";
         try
         {
-           return JavaScript.Call("eval", script);
+            return Godot.JavaScript.Eval(script);
         }
         catch (Exception ex)
         {
@@ -177,6 +174,17 @@ public class iboxdb : Godot.Object
             return msg;
         }
     }
+
+    /*
+    Returns the name of the host OS. 
+    Possible values are:
+    "Android", "iOS", "HTML5", "OSX", "Server", "Windows", "UWP", "X11".
+    */
+    public string get_os_name()
+    {
+        return Godot.OS.GetName();
+    }
+
     public void exit()
     {
         _auto.GetDatabase().Dispose();
@@ -187,6 +195,14 @@ public class iboxdb : Godot.Object
     public void debug_clear()
     {
         BoxSystem.DBDebug.DeleteDBFiles(_db_id);
+    }
+
+    public void print(Object obj)
+    {
+        //var o = Godot.Input.Singleton;
+        //o = Godot.JavaScript.Singleton;
+        Godot.GD.Print(obj);
+        Godot.GD.Print(obj.GetType());
     }
 
 }
