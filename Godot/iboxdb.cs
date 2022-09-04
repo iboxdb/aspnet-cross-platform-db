@@ -9,6 +9,12 @@ using IBoxDB.LocalServer;
 //var idb = preload("res://iboxdb.cs").new()
 public class iboxdb : Godot.Object
 {
+    //var idb = preload("res://iboxdb.cs").create(2)
+    public static iboxdb create(int db_id)
+    {
+        return new iboxdb(db_id);
+    }
+    
     private DB _db;
     private AutoBox _auto = null;
     private int _db_id;
