@@ -8,7 +8,7 @@ Used to check if [iBoxDB](http://www.iboxdb.com/) is supported on Windows and Li
 
 [iBoxDB ORM eXpress Persistent Objects XPO](https://sourceforge.net/p/datastorexpo/code/)
 
-[Godot iBoxDB Wrap](https://github.com/iboxdb/aspnet-cross-platform-db/blob/master/Godot/iboxdb.cs)
+[Godot iBoxDB Wrap](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/Godot)
 
 [WebAPI & SSL Linux](https://github.com/iboxdb/aspnet-cross-platform-db/tree/master/webapi)
 
