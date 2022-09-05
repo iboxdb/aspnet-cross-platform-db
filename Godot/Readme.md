@@ -41,7 +41,7 @@ idb.ensure_table({"id":0}, "table" , [])
 
 ##### Insert Record
 ````
-var id = idb.newId()
+var id = idb.new_id()
 var obj = {"id": id }
 obj.name = "myname_" + id as String
 obj.value = "myvalue_" + id as String
