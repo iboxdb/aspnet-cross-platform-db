@@ -22,11 +22,11 @@ or
 ```
 
 #### Add iBoxDB Wrap to Godot Project
-only one csharp script file,  
+One csharp script file only,  
 [download iboxdb.cs](iboxdb.cs)
 
 #### Use preload(..).new() to import
-[Usage AMeshInstance.gd)](AMeshInstance.gd)
+[Usage AMeshInstance.gd](AMeshInstance.gd)
 
 
 ##### Create Database
