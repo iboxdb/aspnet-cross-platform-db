@@ -1,4 +1,8 @@
-## Godot Wrap
+## Godot Wrapper
+
+iBoxDB is a Lightweight Embedded NoSQL Database, running in many platforms, easy to deploy.
+
+This directory includes a GDScript Wrapper.
 
 ### Prepare
 
@@ -48,5 +52,5 @@ idb.insert("table",obj)
 ````
 sel = idb.select("table") 
 for i in sel :
-		print(i.id, " ", i.name, "  " , i.value, " ")
+  print(i.id, " ", i.name, "  " , i.value, " ")
 ````
