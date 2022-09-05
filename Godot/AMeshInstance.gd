@@ -8,7 +8,7 @@ func _ready():
 	#idb.debug_clear()
 	
 	idb.ensure_table({"id":0}, "table" , [])
-	idb.ensure_index({"name":"myname"}, "table", false, [])
+	idb.ensure_index({"name(32)":"myname"}, "table", false, [])
 	print("db_path:", idb.open())
   
 
