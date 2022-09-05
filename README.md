@@ -1,4 +1,4 @@
-## ASP.NET Cross Platform Database Test Project
+## Cross Platform Database Script Project
 
 Used to check if [iBoxDB](http://www.iboxdb.com/) is supported on Windows and Linux,
 
