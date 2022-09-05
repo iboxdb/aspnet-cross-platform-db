@@ -1,6 +1,6 @@
 ## Godot Wrapper
 
-iBoxDB is a Lightweight Embedded NoSQL Database, running in many platforms, easy to deploy.
+[iBoxDB](https://www.iboxdb.com) is a Lightweight Embedded NoSQL Database, running in many platforms, easy to deploy.
 
 This directory includes a GDScript Wrapper.
 
