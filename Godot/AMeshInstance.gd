@@ -9,7 +9,8 @@ func _ready():
 	
 	idb.ensure_table({"id":0}, "table" , [])
 	idb.ensure_index({"name(32)":"myname"}, "table", false, [])
-	print("db_path:", idb.open())
+	var path = idb.open()
+	print("db_path:", path)
   
 
 func _process(delta):
@@ -24,7 +25,7 @@ func test():
 	var size = idb.count("table")	
 	print("count: ", size)
 	
-	var id = idb.newId()
+	var id = idb.new_id()
 	print("new id:", id)
 	
 	var obj = {"id": id }
@@ -47,6 +48,7 @@ func test():
 	print(o.id == obj.id)
 	print(o.name == obj.name)
 	
+	#nosql, adding a 'ex' field automatically
 	o.ex = "ex_" + o.id as String 
 	o.value = o.value + "_ex" 
 	print(idb.update("table", o)) 
@@ -62,6 +64,7 @@ func test():
 	var o3 = idb.find("table",id) 
 	print(o3 != o2)
 	print(o3.ex2 == o2.ex2);
+	print(o3);
 	
 #	print(idb.delete("table", id))	
 #	var o4 = idb.find("table",id)

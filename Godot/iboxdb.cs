@@ -130,7 +130,7 @@ public class iboxdb : Godot.Object
         return count(ql, new object[0]);
     }
 
-    public int newId()
+    public int new_id()
     {
         return (int)_auto.NewId();
     }
