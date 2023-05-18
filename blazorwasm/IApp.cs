@@ -7,7 +7,7 @@ using IBoxDB.LocalServer;
 
 /*
 dotnet new blazorwasm
-<PackageReference Include="iBoxDB" Version="3.5.0" /> 
+<PackageReference Include="iBoxDB" Version="3.9.1" /> 
  
 builder.Services.AddDatabase();
 public void ConfigureServices(IServiceCollection services)
