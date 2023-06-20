@@ -9,7 +9,7 @@ namespace IBoxDB.IO
     // An example for encryption.
     // EncryptDatabaseConfig.ResetStorage();  
     // var db = new DB();
-    // <PackageReference Include="iBoxDB" Version="3.5.0" />	
+    // <PackageReference Include="iBoxDB" Version="" />	
     public class EncryptDatabaseConfig : DatabaseConfig
     {
         public static void ResetStorage()
