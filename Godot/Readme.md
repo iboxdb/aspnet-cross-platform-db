@@ -10,7 +10,7 @@ This directory includes a GDScript Wrapper.
 
 ```xml
   <ItemGroup>  
-    <PackageReference Include="iBoxDB" Version="3.9.1" /> 
+    <PackageReference Include="iBoxDB" Version="" /> 
   </ItemGroup>
 ```
 or
