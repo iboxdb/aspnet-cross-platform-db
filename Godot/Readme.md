@@ -23,10 +23,13 @@ or
 
 #### Add iBoxDB Wrap to Godot Project
 One csharp script file only,  
-[download iboxdb.cs](iboxdb.cs)
+[v3 download iboxdb.cs](iboxdb.cs)
+[v4 download iboxdb4.cs](iboxdb4.cs)
+
 
 #### Use preload(..).new() to import
-[Usage AMeshInstance.gd](AMeshInstance.gd)
+[v3 Usage AMeshInstance.gd](AMeshInstance.gd)
+[v4 Usage accept_dialog4.gd](accept_dialog4.gd)
 
 
 ##### Create Database
